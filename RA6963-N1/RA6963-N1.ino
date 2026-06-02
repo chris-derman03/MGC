@@ -10,7 +10,6 @@ void setup()
 {
   lcd_setup();
   initialize_display();
-  clearDisplay();
 }
 
 void loop()

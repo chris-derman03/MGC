@@ -60,10 +60,12 @@ const uint8_t DATA_PINS[8] = {20,21,2,3,4,5,6,7};
 //==============================================================================
 #define GRAPHICS_HOME           0x0000
 
-#define ENABLE_GRAPHICS         writeCommand(0x98);
-#define SET_ADDRESS_POINTER     writeCommand(0x24); // To previous 2 bytes sent
-#define ENABLE_AUTO_WRITE       writeCommand(0xB0);
-#define DISABLE_AUTO            writeCommand(0xB2);
+#define DISPLAY_OFF             writeCommand(0x90)
+#define NORMAL_MODE             writeCommand(0x80)
+#define ENABLE_GRAPHICS_ONLY    writeCommand(0x98)
+#define SET_ADDRESS_POINTER     writeCommand(0x24) // To previous 2 bytes sent
+#define ENABLE_AUTO_WRITE       writeCommand(0xB0)
+#define DISABLE_AUTO            writeCommand(0xB2)
 
 // Write a Byte to the data pins
 void writeBus(uint8_t value)
@@ -137,6 +139,8 @@ void initialize_display()
   LCD_RESET_OFF;
   _delay_ms(500);
 
+  DISPLAY_OFF;
+
   // Set graphics home address
   writeData(GRAPHICS_HOME & 0xFF);
   writeData((GRAPHICS_HOME >> 8) & 0xFF);
@@ -147,7 +151,10 @@ void initialize_display()
   writeData(0x00);
   writeCommand(0x43);
 
-  ENABLE_GRAPHICS;
+  NORMAL_MODE; // Tell LCD to ignore text integration math
+  clearDisplay();
+
+  ENABLE_GRAPHICS_ONLY;
 }
 
 //==============================================================================
