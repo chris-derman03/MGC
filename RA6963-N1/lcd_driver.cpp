@@ -26,7 +26,9 @@
 //  D45        | PORTD |             |  LCD_D17                   |
 // -----------+-------+-------------+-----------------------------+
 
+#include <Arduino.h>
 #include "lcd_driver.h"
+#include "display_config.h"
 
 //==============================================================================
 // GPIO
@@ -48,8 +50,7 @@
 #define LCD_READ_ACTIVE   digitalWrite(LCD_RD, LOW)
 #define LCD_READ_IDLE     digitalWrite(LCD_RD, HIGH)
 
-// const uint8_t DATA_PINS[8] = {20,21,2,3,4,5,6,7};
-const uint8_t DATA_PINS[8] = {31,33,35,37,39,41,43,45};
+static const uint8_t DATA_PINS[8] = {31,33,35,37,39,41,43,45};
 
 //==============================================================================
 // LCD Controls
@@ -64,14 +65,14 @@ const uint8_t DATA_PINS[8] = {31,33,35,37,39,41,43,45};
 #define DISABLE_AUTO            writeCommand(0xB2)
 
 // Write a Byte to the data pins
-void writeBus(uint8_t value)
+static void writeBus(uint8_t value)
 {
   for (int i = 0; i < 8; i++) {
     digitalWrite(DATA_PINS[i], (value >> i) & 1);
   }
 }
 
-void writeCommand(uint8_t command)
+static void writeCommand(uint8_t command)
 {
   LCD_CS_ENABLE;
 
@@ -85,7 +86,7 @@ void writeCommand(uint8_t command)
   LCD_CS_DISABLE;
 }
 
-void writeData(uint8_t data)
+static void writeData(uint8_t data)
 {
   LCD_CS_ENABLE;
 
@@ -99,7 +100,7 @@ void writeData(uint8_t data)
   LCD_CS_DISABLE;
 }
 
-void setAddressPointer(uint16_t address)
+static void setAddressPointer(uint16_t address)
 {
   writeData(address & 0xFF);
   writeData((address >> 8) & 0xFF);
@@ -169,14 +170,14 @@ void clearDisplay()
   DISABLE_AUTO;
 }
 
-void displayBuffer(const uint8_t *buffer)
+void displayBitmap(const uint8_t *bitmap)
 {
   setAddressPointer(GRAPHICS_HOME);
   ENABLE_AUTO_WRITE;
 
   uint16_t i = SCREEN_BYTES;
   while (i--) {
-    writeData(*buffer++);
+    writeData(*bitmap++);
   }
 
   DISABLE_AUTO;

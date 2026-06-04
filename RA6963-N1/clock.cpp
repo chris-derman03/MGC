@@ -1,8 +1,9 @@
+#include <Arduino.h>
 #include "clock.h"
 #include "RTClib.h"
 #include <Wire.h>
 
-RTC_DS3231 rtc;
+static RTC_DS3231 rtc;
 
 void rtc_setup() 
 {
@@ -40,6 +41,7 @@ static DateTime getMarkipliedTime() {
 // RTC Interface
 //==============================================================================
 
+// Set the RTC
 void setTime(const Time &now) 
 {
   uint8_t hour = (now.hour % 12) + 12 * (now.isPM);
@@ -47,8 +49,8 @@ void setTime(const Time &now)
   // DateTime() is Year, Month, Day, Hour, Minute, Second
   rtc.adjust(DateTime(now.year, now.month, now.day, hour, now.minute, 0));
 }
- 
 
+// Probe the RTC
 Time getTime() 
 {
   DateTime now = DEBUG ? getMarkipliedTime() : rtc.now();
@@ -56,6 +58,7 @@ Time getTime()
   return Time{now.year(), now.month(), now.day(), now.twelveHour(), now.minute(), now.isPM()};
 }
 
+// DEBUG print
 void printTime() 
 {
   DateTime now = DEBUG ? getMarkipliedTime() : rtc.now();

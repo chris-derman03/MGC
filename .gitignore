@@ -1,0 +1,23 @@
+# Python cache / tooling
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.pyright/
+.ruff_cache/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# VS Code / editor junk
+.vscode/
+*.swp
+*.swo
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+RA6963-N1/bitmaps/alarmpics.zip
+
+RA6963-N1/bitmaps/_script/ImageToBitmapArray.ipynb
