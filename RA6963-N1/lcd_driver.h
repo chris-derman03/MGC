@@ -1,6 +1,5 @@
 #pragma once
 #include <Arduino.h>
-#include <stdint.h>
 
 // Resolution
 #define SCREEN_WIDTH 160
