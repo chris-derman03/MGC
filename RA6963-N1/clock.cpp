@@ -20,9 +20,9 @@ void rtc_setup()
 // Use Markiplier (multiplier) to set fake time rate
 //==============================================================================
 #define DEBUG               false
-#define MARKIPLIER          60
-#define DEBUG_START_HOUR    23
-#define DEBUG_START_MINUTE  50
+#define MARKIPLIER          30
+#define DEBUG_START_HOUR    0
+#define DEBUG_START_MINUTE  0
 #define DEBUG_START_SECOND  0
 
 static DateTime getMarkipliedTime() {
@@ -73,6 +73,31 @@ void printTime()
   time += (now.isPM() ? "PM" : "AM");
 
   Serial.println(time);
+}
+
+//==============================================================================
+// Time Struct Interface
+//==============================================================================
+void incrementHour(Time& t)
+{
+  if (t.hour == 11) {
+    t.hour = 12;
+    t.isPM = !t.isPM;   // 11 AM -> 12 PM, 11 PM -> 12 AM
+  } else if (t.hour == 12) {
+    t.hour = 1;
+  } else {
+    t.hour++;
+  }
+}
+
+void incrementMinute(Time& t)
+{
+  t.minute++;
+
+  if (t.minute > 59) {
+    t.minute = 0;
+    incrementHour(t);
+  }
 }
 
 

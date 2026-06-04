@@ -26,6 +26,7 @@
 #define MERIDIEM_HEIGHT    14
 
 #include "bitmaps/alarm_indicator.h"
+#include "bitmaps/alarm_indicator_off.h"
 #define ALARM_INDICATOR_X         95
 #define ALARM_INDICATOR_Y         35
 #define ALARM_INDICATOR_WIDTH     40
@@ -58,22 +59,32 @@ void setModeEvasion()
 {
   screenBuffer.overlayBitmap(evasion_banner, BANNER_X, BANNER_Y, BANNER_WIDTH, BANNER_HEIGHT);
   screenBuffer.overlayBitmap(evasion_kanji, KANJI_X, KANJI_Y, KANJI_WIDTH, KANJI_HEIGHT);
+  displayBitmap(screenBuffer.data());
 }
 
 void setModeAlert() 
 {
   screenBuffer.overlayBitmap(alert_banner, BANNER_X, BANNER_Y, BANNER_WIDTH, BANNER_HEIGHT);
   screenBuffer.overlayBitmap(alert_kanji, KANJI_X, KANJI_Y, KANJI_WIDTH, KANJI_HEIGHT);
+  displayBitmap(screenBuffer.data());
+}
+
+void showAlarmIndicator()
+{
+  screenBuffer.overlayBitmap(alarm_indicator, ALARM_INDICATOR_X, ALARM_INDICATOR_Y, ALARM_INDICATOR_WIDTH, ALARM_INDICATOR_HEIGHT);
+  displayBitmap(screenBuffer.data()); 
+}
+
+void hideAlarmIndicator()
+{
+  screenBuffer.overlayBitmap(alarm_indicator_off, ALARM_INDICATOR_X, ALARM_INDICATOR_Y, ALARM_INDICATOR_WIDTH, ALARM_INDICATOR_HEIGHT);
+  displayBitmap(screenBuffer.data()); 
 }
 
 void setDefaultDisplay()
 {
   screenBuffer.setBuffer(background);
   setModeEvasion();
-  displayBitmap(screenBuffer.data());
-
-  // setModeAlert();
-  // screenBuffer.overlayBitmap(alarm_indicator, ALARM_INDICATOR_X, ALARM_INDICATOR_Y, ALARM_INDICATOR_WIDTH, ALARM_INDICATOR_HEIGHT);
 }
 
 // Modify the buffer and display it given a Time object

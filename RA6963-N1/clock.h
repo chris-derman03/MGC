@@ -15,3 +15,5 @@ void rtc_setup();
 void setTime(const Time &now);
 Time getTime();
 void printTime();
+void incrementHour(Time& t);
+void incrementMinute(Time& t);

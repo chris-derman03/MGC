@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include <avr/pgmspace.h>
 #include "screen_buffer.h"
+#define DEBUG_BUFFER false
 
 uint8_t* ScreenBuffer::data()
 {
@@ -31,7 +32,7 @@ bool ScreenBuffer::canDrawBitmap(uint8_t x, uint8_t y, uint8_t widthBits, uint8_
 void ScreenBuffer::setPixel(uint8_t x, uint8_t y, bool pixelOn)
 {
   if (x >= SCREEN_WIDTH || y >= SCREEN_HEIGHT) {
-    Serial.println("Error in setPixel(): Bit not within bounds of screen.");
+    if (DEBUG_BUFFER) Serial.println("Error in setPixel(): Bit not within bounds of screen.");
     return;
   }
 
@@ -49,12 +50,12 @@ void ScreenBuffer::setPixel(uint8_t x, uint8_t y, bool pixelOn)
 void ScreenBuffer::overlayBitmap(const uint8_t* bitmap, uint8_t x, uint8_t y, uint8_t widthBits, uint8_t heightBits) 
 {
   if (!canDrawBitmap(x, y, widthBits, heightBits)) {
-    Serial.println("Error in overlayBitmap(): Bitmap dimensions not within bounds of screen.");
+    if (DEBUG_BUFFER) Serial.println("Error in overlayBitmap(): Bitmap dimensions not within bounds of screen.");
     return;
   }
 
   if (widthBits % 8 != 0) {
-    Serial.println("Error in overlayBitmap(): Bitmap width not divisible into byte size chunks.");
+    if (DEBUG_BUFFER) Serial.println("Error in overlayBitmap(): Bitmap width not divisible into byte size chunks.");
     return;
   }
 
