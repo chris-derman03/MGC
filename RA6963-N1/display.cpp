@@ -59,26 +59,26 @@ void setModeEvasion()
 {
   screenBuffer.overlayBitmap(evasion_banner, BANNER_X, BANNER_Y, BANNER_WIDTH, BANNER_HEIGHT);
   screenBuffer.overlayBitmap(evasion_kanji, KANJI_X, KANJI_Y, KANJI_WIDTH, KANJI_HEIGHT);
-  displayBitmap(screenBuffer.data());
+  displayFullscreenByteArray(screenBuffer.data());
 }
 
 void setModeAlert() 
 {
   screenBuffer.overlayBitmap(alert_banner, BANNER_X, BANNER_Y, BANNER_WIDTH, BANNER_HEIGHT);
   screenBuffer.overlayBitmap(alert_kanji, KANJI_X, KANJI_Y, KANJI_WIDTH, KANJI_HEIGHT);
-  displayBitmap(screenBuffer.data());
+  displayFullscreenByteArray(screenBuffer.data());
 }
 
 void showAlarmIndicator()
 {
   screenBuffer.overlayBitmap(alarm_indicator, ALARM_INDICATOR_X, ALARM_INDICATOR_Y, ALARM_INDICATOR_WIDTH, ALARM_INDICATOR_HEIGHT);
-  displayBitmap(screenBuffer.data()); 
+  displayFullscreenByteArray(screenBuffer.data()); 
 }
 
 void hideAlarmIndicator()
 {
   screenBuffer.overlayBitmap(alarm_indicator_off, ALARM_INDICATOR_X, ALARM_INDICATOR_Y, ALARM_INDICATOR_WIDTH, ALARM_INDICATOR_HEIGHT);
-  displayBitmap(screenBuffer.data()); 
+  displayFullscreenByteArray(screenBuffer.data()); 
 }
 
 void setDefaultDisplay()
@@ -118,5 +118,5 @@ void drawTime(const Time& now)
     screenBuffer.overlayBitmap(ante, MERIDIEM_X, MERIDIEM_Y, MERIDIEM_WIDTH, MERIDIEM_HEIGHT);
   }
 
-  displayBitmap(screenBuffer.data());
+  displayFullscreenByteArray(screenBuffer.data());
 }

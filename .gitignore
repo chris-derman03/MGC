@@ -21,3 +21,7 @@ Thumbs.db
 RA6963-N1/bitmaps/alarmpics.zip
 
 RA6963-N1/bitmaps/_script/ImageToBitmapArray.ipynb
+
+#KiCad
+CAD/resources/
+CAD/mgc/.history/

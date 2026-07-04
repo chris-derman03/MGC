@@ -3,7 +3,7 @@
 #include "display.h"
 #include "interface.h"
 
-#define TIME_CHECK_INTERVAL    1000   //ms
+#define TIME_CHECK_INTERVAL    100    //ms
 #define BUTTON_CHECK_INTERVAL  5      //ms
 #define SNOOZE_DURATION        300000 // 5 min
 
@@ -80,6 +80,7 @@ void loop()
 
   // redraw immediately if mode changes
   if (timeSetChanged || alarmSetChanged) {
+
     if (timeSetChanged) {
       if (setTimeActive) { // changed false -> true
         editTime = getTime();

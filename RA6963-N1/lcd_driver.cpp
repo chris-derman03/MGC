@@ -8,22 +8,22 @@
 //  5V        |       |             |  POWER                      |
 //  GND	      |       |             |  GROUND                     |
 // -----------+-------+-------------+-----------------------------+
-//  D8        | PORTB |             |  Chip Enable Signal  (CS)   |
-//  D9        | PORTB |             |  Reset            (RESET)   |
-//  D10       | PORTB |             |  Data/Command        (DC)   |
-//  D11       | PORTB |             |  Write               (WR)   |
-//  D12       | PORTB |             |  Read                (RD)   |
+//  D8        | PORTB |             |  Write               (WR)   |
+//  D9        | PORTB |             |  Read                (RD)   |
+//  D10       | PORTB |             |  Chip Enable Signal  (CS)   |
+//  D11       | PORTB |             |  Data/Command        (DC)   |
+//  D12       | PORTB |             |  Reset            (RESET)   |
 // -----------+-------+-------------+-----------------------------+
 // Data Lines
 // -----------+-------+-------------+-----------------------------+
-//  D31        | PORTD |             |  LCD_D10                   |
-//  D33        | PORTD |             |  LCD_D11                   |
-//  D35        | PORTD |             |  LCD_D12                   |
-//  D37        | PORTD |             |  LCD_D13                   |
-//  D39        | PORTD |             |  LCD_D14                   |
-//  D41        | PORTD |             |  LCD_D15                   |
-//  D43        | PORTD |             |  LCD_D16                   |
-//  D45        | PORTD |             |  LCD_D17                   |
+//  D31        | PORTD |             |  LCD_D0                    |
+//  D33        | PORTD |             |  LCD_D1                    |
+//  D35        | PORTD |             |  LCD_D2                    |
+//  D37        | PORTD |             |  LCD_D3                    |
+//  D39        | PORTD |             |  LCD_D4                    |
+//  D41        | PORTD |             |  LCD_D5                    |
+//  D43        | PORTD |             |  LCD_D6                    |
+//  D45        | PORTD |             |  LCD_D7                    |
 // -----------+-------+-------------+-----------------------------+
 
 #include <Arduino.h>
@@ -33,11 +33,11 @@
 //==============================================================================
 // GPIO
 //==============================================================================
-#define LCD_CS     8
-#define LCD_RESET  9
-#define LCD_DC     10
-#define LCD_WR     11
-#define LCD_RD     12
+#define LCD_WR     8
+#define LCD_RD     9
+#define LCD_CS     10
+#define LCD_DC     11
+#define LCD_RESET  12
 
 #define LCD_CS_ENABLE     digitalWrite(LCD_CS, LOW)
 #define LCD_CS_DISABLE    digitalWrite(LCD_CS, HIGH)
@@ -170,14 +170,14 @@ void clearDisplay()
   DISABLE_AUTO;
 }
 
-void displayBitmap(const uint8_t *bitmap)
+void displayFullscreenByteArray(const uint8_t *fullscreenByteArray)
 {
   setAddressPointer(GRAPHICS_HOME);
   ENABLE_AUTO_WRITE;
 
   uint16_t i = SCREEN_BYTES;
   while (i--) {
-    writeData(*bitmap++);
+    writeData(*fullscreenByteArray++);
   }
 
   DISABLE_AUTO;
